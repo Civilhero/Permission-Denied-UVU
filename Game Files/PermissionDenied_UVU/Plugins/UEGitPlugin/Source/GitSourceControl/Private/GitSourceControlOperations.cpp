@@ -769,7 +769,7 @@ bool FGitUpdateStatusWorker::UpdateStates() const
 {
 	bool bUpdated = GitSourceControlUtils::UpdateCachedStates(States);
 
-	FGitSourceControlModule& GitSourceControl = FModuleManager::GetModuleChecked<FGitSourceControlModule>( "GitSourceControl" );
+	FGitSourceControlModule& GitSourceControl = FModuleManager::GetModuleChecked<FGitSourceControlModule>( "GitLFS2" );
 	FGitSourceControlProvider& Provider = GitSourceControl.GetProvider();
 	const bool bUsingGitLfsLocking = Provider.UsesCheckout();
 

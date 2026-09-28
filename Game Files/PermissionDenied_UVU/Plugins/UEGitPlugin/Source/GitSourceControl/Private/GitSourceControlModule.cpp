@@ -159,7 +159,7 @@ void FGitSourceControlModule::SaveSettings()
 
 void FGitSourceControlModule::SetLastErrors(const TArray<FText>& InErrors)
 {
-	FGitSourceControlModule* Module = FModuleManager::GetModulePtr<FGitSourceControlModule>("GitSourceControl");
+	FGitSourceControlModule* Module = FModuleManager::GetModulePtr<FGitSourceControlModule>("GitLFS2");
 	if (Module)
 	{
 		Module->GetProvider().SetLastErrors(InErrors);
@@ -221,7 +221,7 @@ void FGitSourceControlModule::DiffAgainstOriginBranch( UObject * InObject, const
 {
 	check(InObject);
 
-	const FGitSourceControlModule& GitSourceControl = FModuleManager::GetModuleChecked<FGitSourceControlModule>("GitSourceControl");
+	const FGitSourceControlModule& GitSourceControl = FModuleManager::GetModuleChecked<FGitSourceControlModule>("GitLFS2");
 	const FString& PathToGitBinary = GitSourceControl.AccessSettings().GetBinaryPath();
 	const FString& PathToRepositoryRoot = GitSourceControl.GetProvider().GetPathToRepositoryRoot();
 
@@ -279,6 +279,6 @@ void FGitSourceControlModule::DiffAgainstOriginBranch( UObject * InObject, const
 	}
 }
 
-IMPLEMENT_MODULE( FGitSourceControlModule, GitSourceControl );
+IMPLEMENT_MODULE( FGitSourceControlModule, GitLFS2 );
 
 #undef LOCTEXT_NAMESPACE

@@ -129,7 +129,7 @@ void FGitSourceControlProvider::CheckRepositoryStatus()
 			// Wait until the module interface is valid
 			do
 			{
-				if (FModuleManager::Get().IsModuleLoaded("GitSourceControl"))
+				if (FModuleManager::Get().IsModuleLoaded("GitLFS2"))
 				{
 					break;
 				}

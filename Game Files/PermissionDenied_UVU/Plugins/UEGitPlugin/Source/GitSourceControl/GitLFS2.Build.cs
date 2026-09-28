@@ -5,9 +5,9 @@
 
 using UnrealBuildTool;
 
-public class GitSourceControl : ModuleRules
+public class GitLFS2 : ModuleRules
 {
-	public GitSourceControl(ReadOnlyTargetRules Target) : base(Target)
+	public GitLFS2(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PrivateDependencyModuleNames.AddRange(
 			new string[] {

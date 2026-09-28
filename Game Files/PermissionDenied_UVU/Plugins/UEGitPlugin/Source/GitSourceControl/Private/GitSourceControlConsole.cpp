@@ -18,7 +18,7 @@ static FAutoConsoleCommand g_executeGitConsoleCommand(TEXT("git"),
 
 void GitSourceControlConsole::ExecuteGitConsoleCommand(const TArray<FString>& a_args)
 {
-	FGitSourceControlModule& GitSourceControl = FModuleManager::LoadModuleChecked<FGitSourceControlModule>("GitSourceControl");
+	FGitSourceControlModule& GitSourceControl = FModuleManager::LoadModuleChecked<FGitSourceControlModule>("GitLFS2");
 	const FString& PathToGitBinary = GitSourceControl.AccessSettings().GetBinaryPath();
 	const FString& RepositoryRoot = GitSourceControl.GetProvider().GetPathToRepositoryRoot();
 

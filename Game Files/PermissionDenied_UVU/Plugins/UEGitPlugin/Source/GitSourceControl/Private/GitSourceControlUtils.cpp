@@ -1698,15 +1698,15 @@ bool UpdateChangelistStateByCommand()
 {
 	// TODO: This is a temporary solution.
 	FModuleManager &ModuleManager = FModuleManager::Get();
-	FName GitModuleName = "GitSourceControl";
+	FName GitModuleName = "GitLFS2";
 
 	if (!ModuleManager.IsModuleLoaded(GitModuleName))
 	{
 		UE_LOG(LogSourceControl, Warning, TEXT("GitSourceControl module is not loaded."));
 		return false;
 	}
-	
-	FGitSourceControlModule& GitSourceControl = FModuleManager::GetModuleChecked<FGitSourceControlModule>("GitSourceControl");
+
+	FGitSourceControlModule& GitSourceControl = FModuleManager::GetModuleChecked<FGitSourceControlModule>("GitLFS2");
 	FGitSourceControlProvider& Provider = GitSourceControl.GetProvider();
 	if (!Provider.IsGitAvailable())
 	{
@@ -1798,7 +1798,7 @@ void UpdateFileStagingOnSaved(const FString& Filename, UPackage* Pkg, FObjectPos
 bool UpdateFileStagingOnSavedInternal(const FString& Filename)
 {
 	bool bResult = false;
-	FGitSourceControlModule& GitSourceControl = FModuleManager::GetModuleChecked<FGitSourceControlModule>("GitSourceControl");
+	FGitSourceControlModule& GitSourceControl = FModuleManager::GetModuleChecked<FGitSourceControlModule>("GitLFS2");
 	FGitSourceControlProvider& Provider = GitSourceControl.GetProvider();
 	if (!Provider.IsGitAvailable())
 	{
@@ -1821,7 +1821,7 @@ bool UpdateFileStagingOnSavedInternal(const FString& Filename)
 	
 void UpdateStateOnAssetRename(const FAssetData& InAssetData, const FString& InOldName)
 {
-	FGitSourceControlModule& GitSourceControl = FModuleManager::GetModuleChecked<FGitSourceControlModule>("GitSourceControl");
+	FGitSourceControlModule& GitSourceControl = FModuleManager::GetModuleChecked<FGitSourceControlModule>("GitLFS2");
 	FGitSourceControlProvider& Provider = GitSourceControl.GetProvider();
 	if (!Provider.IsGitAvailable())
 	{

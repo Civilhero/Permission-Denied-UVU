@@ -43,7 +43,7 @@ struct FGitVersion
 	}
 };
 
-class GITSOURCECONTROL_API FGitSourceControlProvider final : public ISourceControlProvider
+class GITLFS2_API FGitSourceControlProvider final : public ISourceControlProvider
 {
 public:
 	/* ISourceControlProvider implementation */

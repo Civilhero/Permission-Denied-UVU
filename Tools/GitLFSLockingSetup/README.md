@@ -7,47 +7,38 @@ files (`.uasset`, `.umap`), so two people editing the same Blueprint or map at
 once will silently destroy one person's work on merge. The Git LFS 2 plugin adds
 lock/unlock support with padlock icons in the Content Browser.
 
-## Why a script is needed
+## No per-machine setup required
 
-Epic's built-in plugin and this fork both register a module named
-`GitSourceControl`. Having both present causes a module name collision when the
-project compiles. Epic's copy lives inside the engine install itself
-(`Engine\Plugins\Developer\GitSourceControl\`), not inside this project, so it
-has to be disabled once per machine, per installed engine version.
+Earlier versions of this doc had you disable Epic's built-in `GitSourceControl`
+plugin in your engine install, because both plugins originally declared the same
+internal module name (`GitSourceControl`), which collided at compile time.
 
-**This affects every project that opens with that engine install on your
-machine, not just this one.** If you have other Git-based UE projects on the
-same engine version relying on Epic's basic Git status viewer, they'll lose
-that until you restore it.
+That's fixed now: this repo's copy of the plugin has been renamed internally to
+module `GitLFS2` (see the diff in the commit that added `Plugins\UEGitPlugin` if
+you want the details - `.uplugin`, `.Build.cs`, `IMPLEMENT_MODULE`, and the
+`GITLFS2_API` export macro, plus ~10 self-referential `FModuleManager` lookups
+across `Source\GitSourceControl\`). Epic's built-in plugin and this fork can now
+both be enabled at the same time with no collision. **You do not need to touch
+your engine install at all.**
 
-## Setup (run once per machine)
+## Setup (per machine)
 
-```powershell
-.\Disable-EngineGitPlugin.ps1
-```
+1. `git pull` this repo - the plugin arrives with the rest of the project.
+2. Open `PermissionDenied_UVU.uproject`. First time only, it'll prompt to
+   rebuild missing modules (compiles `GitLFS2`) - click Yes. Requires Visual
+   Studio with the C++/Unreal workload, same as building the project itself.
+3. Edit -> Editor Preferences -> Source Control:
+   - Provider: **Git LFS 2**
+   - Check **"Uses Git LFS 2 File Locking workflow"**
+   - Set your username to match your Git username
 
-Auto-detects your engine version from the project's `.uproject` file and
-disables the matching engine install's plugin. If auto-detection fails, pass
-the path explicitly:
+That's it. No engine files, no scripts.
 
-```powershell
-.\Disable-EngineGitPlugin.ps1 -EnginePath "C:\Program Files\Epic Games\UE_5.8"
-```
+## One known unrelated issue
 
-## Rolling back
-
-If this causes problems (conflicts with another project, team decides against
-the locking workflow, etc.), undo it with:
-
-```powershell
-.\Restore-EngineGitPlugin.ps1
-```
-
-This restores Epic's built-in plugin. Note that if you do this while
-`Plugins\UEGitPlugin` is still present in this repo, the project will fail to
-compile again (same collision, reversed) - either remove/disable
-`Plugins\UEGitPlugin` too, or re-run `Disable-EngineGitPlugin.ps1` afterward.
-
-To fully back out of the Git LFS 2 plugin at the repo level (not just this
-machine), find the commit that added `Plugins\UEGitPlugin` and the related
-`.uproject`/`.gitattributes` changes, and `git revert` it.
+`VisualStudioTools` (Microsoft's IDE-integration plugin, unrelated to Git) is
+disabled in this project's `.uproject` - it throws a `RulesError` on this UE 5.8
+install even on a freshly-verified engine (confirmed via Epic Games Launcher's
+Verify/repair, which didn't fix it). Not investigated further since it's
+unrelated to source control; if you want VS navigation features back, that's a
+separate issue to chase down.

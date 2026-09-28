@@ -103,7 +103,7 @@ public:
 		return GitSourceControlProvider;
 	}
 
-	GITSOURCECONTROL_API static const TArray< FString > & GetEmptyStringArray()
+	GITLFS2_API static const TArray< FString > & GetEmptyStringArray()
 	{
 		return EmptyStringArray;
 	}
@@ -116,12 +116,12 @@ public:
 	 */
 	static inline FGitSourceControlModule& Get()
 	{
-		return FModuleManager::Get().LoadModuleChecked< FGitSourceControlModule >("GitSourceControl");
+		return FModuleManager::Get().LoadModuleChecked< FGitSourceControlModule >("GitLFS2");
 	}
 
 	static inline FGitSourceControlModule* GetThreadSafe()
 	{
-		IModuleInterface* ModulePtr = FModuleManager::Get().GetModule("GitSourceControl");
+		IModuleInterface* ModulePtr = FModuleManager::Get().GetModule("GitLFS2");
 		if (!ModulePtr)
 		{
 			// Main thread should never have this unloaded.
