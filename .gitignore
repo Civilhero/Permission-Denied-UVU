@@ -1,0 +1,81 @@
+# ===== Unreal Engine =====
+
+# Visual Studio / Rider / VS Code
+.vs/
+.vscode/
+.idea/
+*.sln
+*.slnx
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+*.xcodeproj
+*.xcworkspace
+
+# Engine-generated intermediate/cache folders
+Binaries/
+Build/
+Intermediate/
+DerivedDataCache/
+Saved/
+.ue4/
+.ue5/
+
+# Same folders inside any Plugin
+Plugins/**/Binaries/
+Plugins/**/Build/
+Plugins/**/Intermediate/
+
+# Compiled source
+*.o
+*.obj
+*.slo
+*.lo
+*.gch
+*.pch
+
+# Compiled libraries/executables
+*.so
+*.dylib
+*.dll
+*.lai
+*.la
+*.a
+*.lib
+*.exe
+*.out
+*.app
+*.ipa
+*.mod
+
+# Built data for maps (regenerated on load)
+*_BuiltData.uasset
+
+# Crash reports
+CrashReportClient/
+
+# ===== Packaging / Builds =====
+*.pak
+*.sig
+
+# ===== OS junk =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Secrets — never commit credentials =====
+Config/Secrets/
+*.ini.bak
+
+# ===== Whitelist project files that should stay tracked =====
+!*.uproject
+!*.uplugin
+!Config/**/*.ini
+!Content/**/*.uasset
+!Content/**/*.umap
+!Source/**/*.cpp
+!Source/**/*.h
+!Source/**/*.Build.cs
+!Source/**/*.Target.cs
