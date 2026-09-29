@@ -131,6 +131,11 @@ if exist "Permission-Denied-UVU\.git" (
     echo [OK] Repo already exists at "%CLONE_PATH%\Permission-Denied-UVU" - skipping clone.
 ) else (
     echo Cloning repository into "%CLONE_PATH%\Permission-Denied-UVU"...
+    echo This repo is public, so cloning it doesn't require logging in.
+    echo If you ARE asked to authenticate repeatedly during cloning, something
+    echo unrelated is likely misconfigured on this machine's Git credential
+    echo setup - it's not an access-permission issue on the repo itself.
+    echo.
     git clone https://github.com/Shadowisp911/Permission-Denied-UVU.git
     if errorlevel 1 (
         echo Clone failed. Common causes: no GitHub access to this repo yet
@@ -139,6 +144,37 @@ if exist "Permission-Denied-UVU\.git" (
         exit /b 1
     )
 )
+
+REM ============================================
+REM  Step 6: Verify LFS content actually downloaded
+REM  ("git clone" can report success even if the LFS smudge/download step
+REM  silently failed, leaving broken pointer files instead of real assets -
+REM  so check for that explicitly instead of trusting clone's exit code.)
+REM ============================================
+cd /d "Permission-Denied-UVU"
+if errorlevel 1 (
+    echo Could not enter the cloned repo folder to verify LFS content.
+    pause
+    exit /b 1
+)
+
+echo Verifying Git LFS content downloaded correctly...
+git lfs pull
+if errorlevel 1 (
+    echo.
+    echo [FAILED] Git LFS content did not download correctly. Your repo
+    echo files exist, but large assets ^(.uasset, .umap, textures, etc.^)
+    echo may be small placeholder pointer files instead of the real thing.
+    echo.
+    echo This usually means an authentication problem specifically with
+    echo Git LFS - re-run this script, or from inside the repo folder run:
+    echo     git lfs pull
+    echo and watch for an authentication or permission error in the output.
+    pause
+    exit /b 1
+)
+echo [OK] Git LFS content verified.
+cd /d "%CLONE_PATH%"
 
 echo.
 echo ============================================
