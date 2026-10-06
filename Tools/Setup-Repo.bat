@@ -183,14 +183,11 @@ echo ============================================
 echo  Repo location: %CLONE_PATH%\Permission-Denied-UVU
 echo.
 echo  Next steps (see CONTRIBUTING.md for full details):
-echo   1. Install Unreal Engine 5.8 and a C++ compiler if you haven't
-echo      (any recent Visual Studio with the "Game development with
-echo      C++" workload - VS2022 and VS2026 both confirmed working)
+echo   1. Install Unreal Engine 5.8 if you haven't. No compiler is needed -
+echo      the project is Blueprint-only.
 echo   2. Open:
-echo      %CLONE_PATH%\Permission-Denied-UVU\Game Files\PermissionDenied_UVU\PermissionDenied_UVU.uproject
-echo   3. Click Yes on the first-time "rebuild missing modules" prompt
-echo   4. In the editor: Edit -^> Editor Preferences -^> Source Control
-echo      -^> Provider: Git LFS 2 -^> check Uses Git LFS 2 File Locking
-echo      workflow -^> set Username to your GitHub username EXACTLY
+echo      %CLONE_PATH%\Permission-Denied-UVU\Permission_Denied\Permission_Denied.uproject
+echo   3. Before editing shared maps or Blueprints, read the section
+echo      on working together without locking in CONTRIBUTING.md.
 echo ============================================
 pause

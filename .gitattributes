@@ -3,11 +3,11 @@
 
 # ===== Git LFS =====
 
-# Unreal binary assets - lockable: these can't be merged, so Git LFS 2's
-# checkout=lock / checkin=unlock workflow prevents two people editing the same
-# Blueprint or map at once. See Tools\GitLFSLockingSetup\README.md.
-*.uasset filter=lfs diff=lfs merge=lfs -text lockable
-*.umap filter=lfs diff=lfs merge=lfs -text lockable
+# Unreal binary assets. These can't be text-merged, so two people editing the
+# same Blueprint or map will conflict - coordinate who edits what (see
+# CONTRIBUTING.md). No file locking is used.
+*.uasset filter=lfs diff=lfs merge=lfs -text
+*.umap filter=lfs diff=lfs merge=lfs -text
 
 # 2D art
 *.png filter=lfs diff=lfs merge=lfs -text
